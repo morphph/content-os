@@ -1,0 +1,41 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "groupings": [
+    {
+      "title": "情报层 Intelligence",
+      "skills": [
+        "morning-intel",
+        "news-intel",
+        "ai-trend-scan",
+        "outlier-radar",
+        "github-trending"
+      ]
+    },
+    {
+      "title": "选题层 Topics",
+      "skills": [
+        "content-opportunities"
+      ]
+    },
+    {
+      "title": "研究层 Research",
+      "skills": [
+        "deep-research-chase",
+        "yt-pipeline"
+      ]
+    },
+    {
+      "title": "制作层 Production",
+      "skills": [
+        "angle-brainstorm",
+        "outline-build"
+      ]
+    },
+    {
+      "title": "分发层 Distribution",
+      "skills": [
+        "content-cascade"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "skill": "github-trending",
+  "layer": "intelligence",
+  "upstream": {
+    "repo": "morphph/agentic-os",
+    "commit": "3262ca00e1de14df4f899df279d314da04415dc2",
+    "rubric": "obsidian-v2/workflow-references/github-trending.md",
+    "prompt": "obsidian-v2/runner/original-workflows.mjs originalPrompt('github-trending')",
+    "deliverablePath": "obsidian-v2/runner/original-workflows.mjs deliverablePathFor('github-trending')"
+  },
+  "regions": [
+    {
+      "file": "SKILL.md",
+      "marker": "rubric",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/github-trending.md",
+      "frontmatter": "strip"
+    },
+    {
+      "file": "SKILL.md",
+      "marker": "contract",
+      "mode": "fragments",
+      "source": [
+        "obsidian-v2/runner/original-workflows.mjs",
+        "obsidian-v2/runner/workflows.mjs"
+      ]
+    },
+    {
+      "file": "SKILL.md",
+      "field": "description",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/github-trending.md"
+    }
+  ],
+  "rewrites": [
+    {
+      "id": "description",
+      "original": "Direct-exec (no AI in loop) — runner spawns the Python script directly. Use when the cockpit \"GitHub Trending\" card fires a refresh-new intent, or when manually invoked via /github-trending.",
+      "replacement": "Deterministic (no AI in the loop) — run the bundled script and return its report unchanged. Use when asked for GitHub trending repos, before Morning Intel, or when invoked via /github-trending.",
+      "reason": "The original description named the agentic-os runner and cockpit card that triggered the script; a skill is triggered by the user or by Morning Intel.",
+      "file": "SKILL.md",
+      "region": "frontmatter:description"
+    },
+    {
+      "id": "invoke",
+      "original": "## How runner invokes\n\nListed in `runner.js → isDirectExec` set. Runner spawns `python scripts/fetch.py` with `cwd: VAULT_ROOT`. Script writes the file. Runner logs exit code + first line.",
+      "replacement": "## How content-os invokes\n\nRun `node <skill-dir>/scripts/github-trending/run.mjs`. It runs the unchanged `scripts/github-trending/fetch.py` with the vault as its output root (up to three attempts on HTTP 502/503/504, timeouts and connection resets, as the agentic-os runner did), then prints the snapshot the script wrote.",
+      "reason": "The agentic-os runner (direct-exec set) launched the script; in content-os the bundled run.mjs wrapper does, with the same retry rule as directWorkflow in workflows.mjs.",
+      "file": "SKILL.md",
+      "region": "rubric"
+    },
+    {
+      "id": "manual",
+      "original": "```bash\npython \"<starter>/obsidian-v2/runner/scripts/github-trending/fetch.py\"\n```\n\nWrites to vault if `AGENTIC_OS_VAULT` env var set, else `~/the-vault`.",
+      "replacement": "```bash\nAGENTIC_OS_VAULT=\"$CONTENT_OS_VAULT\" python3 \"<skill-dir>/scripts/github-trending/fetch.py\"\n```\n\nWrites to the directory in `AGENTIC_OS_VAULT`. Always set it (run.mjs does): without it the unchanged script falls back to its agentic-os defaults.",
+      "reason": "The script path and default vault were agentic-os installation paths. fetch.py itself is unchanged; content-os always gives it the vault through AGENTIC_OS_VAULT, which also keeps it from reading any agentic-os dotenv file.",
+      "file": "SKILL.md",
+      "region": "rubric"
+    }
+  ],
+  "bundle": {
+    "toolsVersion": "1.0.0",
+    "tools": [
+      "github-trending"
+    ],
+    "references": []
+  }
+}

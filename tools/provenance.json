@@ -1,0 +1,58 @@
+{
+  "upstream": {
+    "repo": "morphph/agentic-os",
+    "commit": "3262ca00e1de14df4f899df279d314da04415dc2"
+  },
+  "verbatim": [
+    {
+      "file": "tools/lib/youtube-research-data.mjs",
+      "source": "obsidian-v2/runner/youtube-research-data.mjs",
+      "sha256": "42a7a383e00df16ed4ab5184011e4f52495ec16feeae17b33b3bf563e8d4cdda"
+    },
+    {
+      "file": "tools/lib/x-research-data.mjs",
+      "source": "obsidian-v2/runner/x-research-data.mjs",
+      "sha256": "3e87a5984e7ce766dacc862c30175d174b80c685cafbe4c6d84f7131416d98da"
+    },
+    {
+      "file": "tools/github-trending/fetch.py",
+      "source": "obsidian-v2/runner/scripts/github-trending/fetch.py",
+      "sha256": "dab123dd4075d99cb0443f5ab684e3b36da2a7e7e785ab8bfc3b3ca3ad2f93cb"
+    }
+  ],
+  "ported": [
+    {
+      "file": "tools/reports.mjs",
+      "source": [
+        "obsidian-v2/runner/original-workflows.mjs (deliverablePathFor)",
+        "obsidian-v2/runner/workflows.mjs (destinationFor, latestReport, pipelineInputs)"
+      ],
+      "note": "Logic and output strings ported; covered by tests/reports.test.mjs."
+    },
+    {
+      "file": "tools/youtube-data.mjs",
+      "source": "obsidian-v2/runner/vault-mcp.mjs (youtube_research_data)",
+      "note": "Same argument allow-list."
+    },
+    {
+      "file": "tools/x-data.mjs",
+      "source": "obsidian-v2/runner/vault-mcp.mjs (x_research_data)",
+      "note": "Same argument allow-list; run id replaces the per-process run budget; state-folder lock."
+    },
+    {
+      "file": "tools/github-trending/run.mjs",
+      "source": "obsidian-v2/runner/workflows.mjs (directWorkflow github-trending)",
+      "note": "Same retry rule."
+    }
+  ],
+  "new": [
+    {
+      "file": "tools/transcript.py",
+      "note": "agentic-os bundles no transcript tool."
+    },
+    {
+      "file": "tools/lib/config.mjs",
+      "note": "content-os settings."
+    }
+  ]
+}

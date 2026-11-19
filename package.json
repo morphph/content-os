@@ -1,0 +1,15 @@
+{
+  "name": "content-os",
+  "private": true,
+  "type": "module",
+  "description": "Independently versioned content-production skills (intelligence, topics, research, production, distribution) for Hermes Agent and other SKILL.md agents.",
+  "license": "MIT",
+  "engines": {"node": ">=20.3"},
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "sync": "node scripts/sync.mjs && node scripts/provenance.mjs",
+    "check": "node scripts/sync.mjs --check && node scripts/provenance.mjs --check && node scripts/check-versions.mjs",
+    "provenance": "node scripts/provenance.mjs",
+    "release": "node scripts/release.mjs"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "skill": "morning-intel",
+  "layer": "intelligence",
+  "upstream": {
+    "repo": "morphph/agentic-os",
+    "commit": "3262ca00e1de14df4f899df279d314da04415dc2",
+    "rubric": "obsidian-v2/workflow-references/morning-intel.md",
+    "prompt": "obsidian-v2/runner/original-workflows.mjs originalPrompt('morning-intel'), obsidian-v2/runner/workflows.mjs workflowPrompt",
+    "deliverablePath": "obsidian-v2/runner/original-workflows.mjs deliverablePathFor('morning-intel')"
+  },
+  "regions": [
+    {
+      "file": "SKILL.md",
+      "marker": "rubric",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/morning-intel.md",
+      "frontmatter": "none"
+    },
+    {
+      "file": "SKILL.md",
+      "marker": "contract",
+      "mode": "fragments",
+      "source": [
+        "obsidian-v2/runner/original-workflows.mjs",
+        "obsidian-v2/runner/workflows.mjs"
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "id": "contract-header",
+      "original": "Execute this Agentic OS workflow using the selected provider. Vault root: ${root}.",
+      "replacement": "Execute this content-os workflow using the selected provider. Vault root: the content-os vault (see Terms above).",
+      "reason": "agentic-os interpolated its vault path into the prompt; content-os resolves the vault from --vault / CONTENT_OS_VAULT (defined in the adapter section).",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-youtube-tool",
+      "original": "agentic_vault youtube_research_data;",
+      "replacement": "`youtube_research_data` (`scripts/youtube-data.mjs`);",
+      "reason": "agentic_vault was the agentic-os MCP server name; content-os bundles the same tool as a script.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-x-tool",
+      "original": "agentic_vault x_research_data first",
+      "replacement": "`x_research_data` (`scripts/x-data.mjs`) first",
+      "reason": "agentic_vault was the agentic-os MCP server name; content-os bundles the same tool as a script.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-owner",
+      "original": "OUTPUT CONTRACT: The bridge owns the final report at ${destinationFor(job)}.",
+      "replacement": "OUTPUT CONTRACT: This skill saves the final report itself with `scripts/reports.mjs save --skill morning-intel` (step \"Save\" above), under the vault at `inbox/research/morning-intel/YYYY-MM-DD-intel-<id>.md`.",
+      "reason": "agentic-os has a bridge that saves the returned report. content-os has no bridge: the skill saves the report itself with the bundled reports.mjs (same vault-relative path rules as agentic-os) and still returns the complete Markdown.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-destination",
+      "original": "Do not write that destination yourself or substitute",
+      "replacement": "Do not write that destination any other way, or substitute",
+      "reason": "In content-os the skill writes the destination, but only through reports.mjs save, which never overwrites an existing report.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "tz",
+      "original": "Use America/Chicago for report dating.",
+      "replacement": "Use the configured report time zone (`CONTENT_OS_TZ`, else the computer's zone) for report dating.",
+      "reason": "agentic-os rewrote America/Chicago to the machine time zone at prompt time (zoneText in workflows.mjs) and has no bridge-side zone setting here; content-os makes the report time zone configurable with CONTENT_OS_TZ, defaulting to the machine zone like agentic-os.",
+      "file": "SKILL.md",
+      "region": "rubric"
+    },
+    {
+      "id": "save-ct",
+      "original": "End with observed generation time in CT. The bridge saves the complete answer; do not replace it with a short summary or a file link.",
+      "replacement": "End with observed generation time in the report time zone. Save the complete answer as the output contract says and return it in full; do not replace it with a short summary or a file link.",
+      "reason": "agentic-os has a bridge that saves the returned report. content-os has no bridge: the skill saves the report itself with the bundled reports.mjs (same vault-relative path rules as agentic-os) and still returns the complete Markdown. \"CT\" is the owner's Central Time abbreviation, which agentic-os did not rewrite for other zones; in content-os the report time zone is configurable.",
+      "file": "SKILL.md",
+      "region": "rubric"
+    }
+  ],
+  "bundle": {
+    "toolsVersion": "1.0.0",
+    "tools": [
+      "youtube-data",
+      "x-data",
+      "reports"
+    ],
+    "references": [
+      "rubric:news-intel",
+      "rubric:ai-trend-scan",
+      "rubric:outlier-radar",
+      "shared:youtube-data",
+      "shared:x-data"
+    ]
+  }
+}

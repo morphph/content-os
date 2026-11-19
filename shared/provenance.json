@@ -1,0 +1,26 @@
+{
+  "upstream": {"repo": "morphph/agentic-os", "commit": "3262ca00e1de14df4f899df279d314da04415dc2"},
+  "regions": [
+    {"file": "shared/references/youtube-data.md", "mode": "exact", "source": "obsidian-v2/workflow-references/youtube-data.md"},
+    {"file": "shared/references/x-data.md", "mode": "exact", "source": "obsidian-v2/workflow-references/x-data.md"}
+  ],
+  "new": [
+    {"file": "shared/references/transcript.md", "reason": "agentic-os bundles no transcript tool; its rubrics only ask for an available transcript connector or installed transcript reader."}
+  ],
+  "rewrites": [
+    {
+      "id": "youtube-tool",
+      "file": "shared/references/youtube-data.md",
+      "original": "use the supplied agentic_vault `youtube_research_data` tool. It uses the existing local API connection internally for both providers. A filtered shell environment is not evidence that the connection is missing.",
+      "replacement": "use the `youtube_research_data` tool: run `node <skill-dir>/scripts/youtube-data.mjs '<JSON arguments>'`, where the JSON object carries the fields below. It reads `YOUTUBE_API_KEY` from the environment internally and never prints it. If it reports that access is not configured, the key is missing from this agent's environment: report YouTube as unavailable instead of looking for the key.",
+      "reason": "agentic-os exposed the tool through its agentic_vault MCP server, which read the key from the bridge's environment. content-os ships the same library as a bundled script that reads YOUTUBE_API_KEY from the agent's environment (Hermes passes it through when the skill declares it)."
+    },
+    {
+      "id": "x-tool",
+      "file": "shared/references/x-data.md",
+      "original": "use the supplied agentic_vault `x_research_data` tool first. It uses the existing local connection internally for both providers. A filtered shell environment is not evidence that the connection is missing.",
+      "replacement": "use the `x_research_data` tool first: run `node <skill-dir>/scripts/x-data.mjs --run <run-id> '<JSON arguments>'`, where the JSON object carries the fields below and `<run-id>` comes from running `node <skill-dir>/scripts/x-data.mjs new-run` once at the start of this workflow run. It reads `TWITTERAPI_IO_KEY` from the environment internally and never prints it. A `not_configured` result means the key is missing from this agent's environment.",
+      "reason": "agentic-os exposed the tool through its agentic_vault MCP server, and one server process was one run. content-os ships the same library as a bundled script, so a run is identified by an explicit run id that keeps the per-run budget across calls."
+    }
+  ]
+}

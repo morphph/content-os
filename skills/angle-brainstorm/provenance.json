@@ -1,0 +1,92 @@
+{
+  "skill": "angle-brainstorm",
+  "layer": "production",
+  "upstream": {
+    "repo": "morphph/agentic-os",
+    "commit": "3262ca00e1de14df4f899df279d314da04415dc2",
+    "rubric": "obsidian-v2/workflow-references/angle-brainstorm.md",
+    "prompt": "obsidian-v2/runner/original-workflows.mjs originalPrompt('angle-brainstorm'), obsidian-v2/runner/workflows.mjs workflowPrompt",
+    "deliverablePath": "obsidian-v2/runner/original-workflows.mjs deliverablePathFor('angle-brainstorm')"
+  },
+  "regions": [
+    {
+      "file": "SKILL.md",
+      "marker": "rubric",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/angle-brainstorm.md",
+      "frontmatter": "strip"
+    },
+    {
+      "file": "SKILL.md",
+      "marker": "contract",
+      "mode": "fragments",
+      "source": [
+        "obsidian-v2/runner/original-workflows.mjs",
+        "obsidian-v2/runner/workflows.mjs"
+      ]
+    },
+    {
+      "file": "SKILL.md",
+      "field": "description",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/angle-brainstorm.md"
+    }
+  ],
+  "rewrites": [
+    {
+      "id": "description",
+      "original": " — even if they don't use the word \"angle\" explicitly",
+      "replacement": "",
+      "reason": "The agentskills.io specification limits description to 1024 characters; the original was 1026. Only this trailing clause was removed; the trigger list is unchanged.",
+      "file": "SKILL.md",
+      "region": "frontmatter:description"
+    },
+    {
+      "id": "prompt-seed",
+      "original": "${JSON.stringify(args.topic)}",
+      "replacement": "<seed>",
+      "reason": "agentic-os interpolated the request argument; the skill takes it from the invocation.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-header",
+      "original": "Execute this Agentic OS workflow using the selected provider. Vault root: ${root}.",
+      "replacement": "Execute this content-os workflow using the selected provider. Vault root: the content-os vault (see Terms above).",
+      "reason": "agentic-os interpolated its vault path into the prompt; content-os resolves the vault from --vault / CONTENT_OS_VAULT (defined in the adapter section).",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-arguments",
+      "original": "Arguments (request data): ${JSON.stringify(job.args)}",
+      "replacement": "Arguments (request data): the topic, seed, angle or URL the user gave when invoking this skill.",
+      "reason": "agentic-os serialized the job arguments into the prompt; a skill receives them from the user's invocation message.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-owner",
+      "original": "OUTPUT CONTRACT: The bridge owns the final report at ${destinationFor(job)}.",
+      "replacement": "OUTPUT CONTRACT: This skill saves the final report itself with `scripts/reports.mjs save --skill angle-brainstorm` (step \"Save\" above), under the vault at `inbox/reports/angles/YYYY-MM-DD-angles-<seed-slug>-<id>.md`.",
+      "reason": "agentic-os has a bridge that saves the returned report. content-os has no bridge: the skill saves the report itself with the bundled reports.mjs (same vault-relative path rules as agentic-os) and still returns the complete Markdown.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-destination",
+      "original": "Do not write that destination yourself or substitute",
+      "replacement": "Do not write that destination any other way, or substitute",
+      "reason": "In content-os the skill writes the destination, but only through reports.mjs save, which never overwrites an existing report.",
+      "file": "SKILL.md",
+      "region": "contract"
+    }
+  ],
+  "bundle": {
+    "toolsVersion": "1.0.0",
+    "tools": [
+      "reports"
+    ],
+    "references": []
+  }
+}

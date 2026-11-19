@@ -1,0 +1,83 @@
+{
+  "skill": "ai-trend-scan",
+  "layer": "intelligence",
+  "upstream": {
+    "repo": "morphph/agentic-os",
+    "commit": "3262ca00e1de14df4f899df279d314da04415dc2",
+    "rubric": "obsidian-v2/workflow-references/ai-trend-scan.md",
+    "prompt": "obsidian-v2/runner/original-workflows.mjs originalPrompt('ai-trend-scan'), obsidian-v2/runner/workflows.mjs workflowPrompt",
+    "deliverablePath": "obsidian-v2/runner/original-workflows.mjs deliverablePathFor('ai-trend-scan')"
+  },
+  "regions": [
+    {
+      "file": "SKILL.md",
+      "marker": "rubric",
+      "mode": "exact",
+      "source": "obsidian-v2/workflow-references/ai-trend-scan.md",
+      "frontmatter": "none"
+    },
+    {
+      "file": "SKILL.md",
+      "marker": "contract",
+      "mode": "fragments",
+      "source": [
+        "obsidian-v2/runner/original-workflows.mjs",
+        "obsidian-v2/runner/workflows.mjs"
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "id": "contract-header",
+      "original": "Execute this Agentic OS workflow using the selected provider. Vault root: ${root}.",
+      "replacement": "Execute this content-os workflow using the selected provider. Vault root: the content-os vault (see Terms above).",
+      "reason": "agentic-os interpolated its vault path into the prompt; content-os resolves the vault from --vault / CONTENT_OS_VAULT (defined in the adapter section).",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-youtube-tool",
+      "original": "agentic_vault youtube_research_data;",
+      "replacement": "`youtube_research_data` (`scripts/youtube-data.mjs`);",
+      "reason": "agentic_vault was the agentic-os MCP server name; content-os bundles the same tool as a script.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-x-tool",
+      "original": "agentic_vault x_research_data first",
+      "replacement": "`x_research_data` (`scripts/x-data.mjs`) first",
+      "reason": "agentic_vault was the agentic-os MCP server name; content-os bundles the same tool as a script.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-owner",
+      "original": "OUTPUT CONTRACT: The bridge owns the final report at ${destinationFor(job)}.",
+      "replacement": "OUTPUT CONTRACT: This skill saves the final report itself with `scripts/reports.mjs save --skill ai-trend-scan` (step \"Save\" above), under the vault at `inbox/reports/trend-scan/YYYY-MM-DD-trend-scan-<id>.md`.",
+      "reason": "agentic-os has a bridge that saves the returned report. content-os has no bridge: the skill saves the report itself with the bundled reports.mjs (same vault-relative path rules as agentic-os) and still returns the complete Markdown.",
+      "file": "SKILL.md",
+      "region": "contract"
+    },
+    {
+      "id": "contract-output-destination",
+      "original": "Do not write that destination yourself or substitute",
+      "replacement": "Do not write that destination any other way, or substitute",
+      "reason": "In content-os the skill writes the destination, but only through reports.mjs save, which never overwrites an existing report.",
+      "file": "SKILL.md",
+      "region": "contract"
+    }
+  ],
+  "bundle": {
+    "toolsVersion": "1.0.0",
+    "tools": [
+      "youtube-data",
+      "x-data",
+      "reports"
+    ],
+    "references": [
+      "shared:youtube-data",
+      "shared:x-data"
+    ]
+  }
+}

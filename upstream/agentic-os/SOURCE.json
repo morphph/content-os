@@ -1,0 +1,29 @@
+{
+  "repo": "morphph/agentic-os",
+  "commit": "3262ca00e1de14df4f899df279d314da04415dc2",
+  "note": "Exact copies of the agentic-os files content-os was ported from (git show <commit>:<path>). Verify with: node scripts/verify-upstream.mjs --agentic-os <checkout>",
+  "files": {
+    "LICENSE": "7c3e6822ce55eb65395a0fe448e4337781c228e4119ebca18a19df24694af238",
+    "obsidian-v2/runner/original-workflows.mjs": "8250cb5f4991dc0e7dd0958e3723b81a73e08b62da5156876a5f69b04624d86b",
+    "obsidian-v2/runner/scripts/github-trending/fetch.py": "dab123dd4075d99cb0443f5ab684e3b36da2a7e7e785ab8bfc3b3ca3ad2f93cb",
+    "obsidian-v2/runner/workflows.mjs": "4513c5c220c6b4910062d31ace78ce8e585997e14d5d4a84d7cda25d3baa1f4b",
+    "obsidian-v2/runner/x-research-data.mjs": "3e87a5984e7ce766dacc862c30175d174b80c685cafbe4c6d84f7131416d98da",
+    "obsidian-v2/runner/youtube-research-data.mjs": "42a7a383e00df16ed4ab5184011e4f52495ec16feeae17b33b3bf563e8d4cdda",
+    "obsidian-v2/tests/content-pipeline.test.mjs": "3558384a4ce81ef2068e08f5df7a2290d0a9f926bb2801b630981c3f2dec5bf6",
+    "obsidian-v2/tests/x-research-data.test.mjs": "a971b19ff8177e68420d6aa886f775d05c9715b08425d3f7d050d6c49d49cf78",
+    "obsidian-v2/tests/youtube-research-data.test.mjs": "f313c16a2f3407fbb45d75e35b7d4301c9dc7956fdeb65ff753717cbd760e842",
+    "obsidian-v2/workflow-references/ai-trend-scan.md": "f01038b2e6aa6bce694debdb86501e2fe676929cddf058d2e344f34c2bc6211c",
+    "obsidian-v2/workflow-references/angle-brainstorm.md": "ac4ddac95d40c770bd865272053dd9c677d6043a733f7d549f66034c37843c67",
+    "obsidian-v2/workflow-references/content-cascade.md": "8a1d75114cf3b4ea10fed1d905d7990002ffe6fdfd9090ca6da58ead9bfd3594",
+    "obsidian-v2/workflow-references/content-opportunities.md": "85bb6f54a0aa8a595e7a1a480471d5e034dbd1db2a68275d2439e25b215a5ef1",
+    "obsidian-v2/workflow-references/deep-research-chase.md": "ed1bd2257aa9376a0741c3886fddc671562066c08272311c889bde8e1bdd3995",
+    "obsidian-v2/workflow-references/github-trending.md": "07583cffa3c6c2294b132a2d3cd2cafa0dfc4638777fd081c63e97afe796fd43",
+    "obsidian-v2/workflow-references/morning-intel.md": "b1210941c6a8b3f652d28ad6d84db5401351e0a8c41484ab04e55672ca424806",
+    "obsidian-v2/workflow-references/news-intel.md": "24e8baa6f7b95451b4b87cf9fb50430d371224150fe6ca1c50f7a12c1baf061c",
+    "obsidian-v2/workflow-references/outlier-radar.md": "bbee9d790bf9bf6982a927f7e1885ba68dfb786fd705c7c43fbaed3f22711d7b",
+    "obsidian-v2/workflow-references/outline-build.md": "c8b3d2a7435700b029dcaeba32cc9790eac0443bf297cec52f40d3fcf3bd5d95",
+    "obsidian-v2/workflow-references/x-data.md": "9da2df3570693fe60c422999f613df8d70cc51290f34d2a643bfde54c9f0a1d3",
+    "obsidian-v2/workflow-references/youtube-data.md": "8dfa80b891b22d9da5f82c876ea8e56386b74fb46a8c66580c624735326b3799",
+    "obsidian-v2/workflow-references/yt-pipeline.md": "becb36a41bcec2683ea8b23aef3044e398f5a7d92dfd37a48f6bd411621e3e8b"
+  }
+}
